@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- <body background='http://img.haozhaopian.net/share/1476212989974Olu.jpg'>
+ -->
+  <title><%=@user.full_name%> (@<%=@user.username%>) • buket</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+
+    /* Remove the navbar's default margin-bottom and rounded borders */
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 450px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;}
+    }
+
+  
+    .button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 2px 2px;
+    cursor: pointer;
+    }
+</style>
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">buket</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/">Home</a></li>
+        <li><a href="/users/<%=@user.slug%>">Profile</a></li>
+        <li><a href="/buckets">Buckets</a></li>
+        <li><a href="/buckets/new">Post</a></li>
+        <li><a href="/buckets/tag">Tags</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+<div class="container-fluid text-center">
+
+      <img src="https://s22.postimg.org/4l1a7as3l/Messages_Image_2645789372.png" width="500" height="250">
+<h2>Welcome, <%= @user.full_name %></h2><form action="/users/<%=@user.slug%>/edit" method="GET">
+  <input type="submit" class="button" value="edit profile"> 
+    </form>
+    <br>
+
+<% @user.buckets.each do |bucket| %>
+  <h3><%= bucket.title %></h3>
+
+  <!-- add time stamp here?? -->
+
+  <% bucket.elements.each do |element| %>
+    <% if element.posts != [] %>
+      <a href="/buckets/<%= bucket.id %>/element/<%= element.id %>"><p><form action="/buckets/<%= bucket.id %>/element/<%= element.id %>/edit"><%= element.content %> <input type="checkbox" name="chk" onclick="if(this.checked){this.form.submit()}"></p></a></form>
+    <% else %>
+      <form action="/buckets/<%= bucket.id %>/element/<%= element.id %>/edit"><%= element.content %> <input type="checkbox" name="chk" onclick="if(this.checked){this.form.submit()}"></form><br>
+    <% end %> 
+  <%end%>
+
+
+  <form action="/buckets/<%=bucket.id%>/edit" method="GET">
+  <input type="submit" class="button" value="edit"> 
+    </form>
+  <br><br>
+<%end%>
+
+<br><br>
+
+
+
+<footer class="container-fluid text-center">
+  <p><font face="arial">© 2016 BUKET</p>
+</footer>
+
+</body>
+</html>
+
+

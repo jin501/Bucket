@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161012172815) do
+ActiveRecord::Schema.define(version: 20170117021026) do
 
   create_table "bucket_topics", force: :cascade do |t|
     t.integer "buket_id"
@@ -22,17 +22,19 @@ ActiveRecord::Schema.define(version: 20161012172815) do
     t.integer "user_id"
   end
 
-  create_table "elements", force: :cascade do |t|
-    t.string  "content"
-    t.integer "bucket_id"
+  create_table "comments", force: :cascade do |t|
+    t.string  "comment"
     t.integer "user_id"
+    t.integer "element_id"
   end
 
-  create_table "posts", force: :cascade do |t|
-    t.string  "blob"
-    t.integer "element_id"
+  create_table "elements", force: :cascade do |t|
+    t.string  "content"
+    t.boolean "completed", default: false
+    t.string  "title"
     t.integer "bucket_id"
     t.integer "user_id"
+    t.string  "picture"
   end
 
   create_table "topics", force: :cascade do |t|
@@ -43,6 +45,7 @@ ActiveRecord::Schema.define(version: 20161012172815) do
     t.string "full_name"
     t.string "username"
     t.string "email"
+    t.string "avatar"
     t.string "password_digest"
   end
 

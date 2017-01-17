@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   has_many :topics, through: :buckets
   has_many :elements
   has_many :posts
+  has_many :comments
 
 
   def slug

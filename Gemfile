@@ -11,6 +11,7 @@ gem 'shotgun'
 gem 'pry'
 gem 'bcrypt'
 gem "tux"
+gem 'carrierwave', '~> 1.0'
 
 group :development do
  gem 'sqlite3'
